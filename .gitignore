@@ -1,7 +1,0 @@
-# Ignore all files and directories
-*
-
-# Except these files and directories
-!*/
-
-node_modules/
