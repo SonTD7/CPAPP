@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Getting Started
 
 Welcome to your new project.
@@ -23,3 +24,7 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+=======
+# CPAPP
+Experience SAP, do the exercises first
+>>>>>>> dec27811ec2578bbfa26f5cc3401606eb14dc61c
