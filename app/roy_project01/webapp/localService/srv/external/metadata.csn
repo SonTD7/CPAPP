@@ -1,0 +1,366 @@
+{
+  "meta": {
+    "creator": "cds-dk 6.7.1"
+  },
+  "$version": "2.0",
+  "definitions": {
+    "metadata.Risks": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "elements": {
+        "createdAt": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "@Common.Label": "{i18n>CreatedAt}"
+        },
+        "createdBy": {
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "doc": "{i18n>UserID.Description}",
+          "@Common.Label": "{i18n>CreatedBy}"
+        },
+        "modifiedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "@Common.Label": "{i18n>ChangedAt}"
+        },
+        "modifiedBy": {
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "doc": "{i18n>UserID.Description}",
+          "@Common.Label": "{i18n>ChangedBy}"
+        },
+        "ID": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.UUID",
+          "@Core.Computed": true
+        },
+        "title": {
+          "type": "cds.String",
+          "length": 100
+        },
+        "prio": {
+          "type": "cds.String",
+          "length": 5
+        },
+        "descr": {
+          "type": "cds.LargeString"
+        },
+        "miti": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.Mitigations",
+          "cardinality": {
+            "max": 1
+          },
+          "on": [
+            {
+              "ref": [
+                "miti",
+                "ID"
+              ]
+            },
+            "=",
+            {
+              "ref": [
+                "miti_ID"
+              ]
+            }
+          ]
+        },
+        "miti_ID": {
+          "type": "cds.UUID"
+        },
+        "impact": {
+          "type": "cds.Integer"
+        },
+        "criticality": {
+          "type": "cds.Integer"
+        },
+        "IsActiveEntity": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          },
+          "@UI.Hidden": true
+        },
+        "HasActiveEntity": {
+          "notNull": true,
+          "type": "cds.Boolean",
+          "@UI.Hidden": true
+        },
+        "HasDraftEntity": {
+          "notNull": true,
+          "type": "cds.Boolean",
+          "@UI.Hidden": true
+        },
+        "DraftAdministrativeData": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.DraftAdministrativeData",
+          "cardinality": {
+            "max": 1
+          },
+          "keys": [],
+          "@UI.Hidden": true
+        },
+        "SiblingEntity": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.Risks",
+          "cardinality": {
+            "max": 1
+          },
+          "keys": []
+        }
+      },
+      "actions": {
+        "draftPrepare": {
+          "kind": "action",
+          "params": {
+            "SideEffectsQualifier": {
+              "type": "cds.LargeString"
+            }
+          },
+          "returns": {
+            "type": "metadata.Risks"
+          }
+        },
+        "draftActivate": {
+          "kind": "action",
+          "returns": {
+            "type": "metadata.Risks"
+          }
+        },
+        "draftEdit": {
+          "kind": "action",
+          "params": {
+            "PreserveChanges": {
+              "type": "cds.Boolean"
+            }
+          },
+          "returns": {
+            "type": "metadata.Risks"
+          }
+        }
+      },
+      "@Common.DraftRoot": {
+        "$Type": "Common.DraftRootType",
+        "ActivationAction": "metadata.draftActivate",
+        "EditAction": "metadata.draftEdit",
+        "PreparationAction": "metadata.draftPrepare"
+      }
+    },
+    "metadata.Mitigations": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "elements": {
+        "createdAt": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "@Common.Label": "{i18n>CreatedAt}"
+        },
+        "createdBy": {
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Immutable": true,
+          "@Core.Computed": true,
+          "doc": "{i18n>UserID.Description}",
+          "@Common.Label": "{i18n>CreatedBy}"
+        },
+        "modifiedAt": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "@Common.Label": "{i18n>ChangedAt}"
+        },
+        "modifiedBy": {
+          "type": "cds.String",
+          "length": 255,
+          "@UI.HiddenFilter": true,
+          "@Core.Computed": true,
+          "doc": "{i18n>UserID.Description}",
+          "@Common.Label": "{i18n>ChangedBy}"
+        },
+        "ID": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.UUID",
+          "@Core.Computed": true
+        },
+        "description": {
+          "type": "cds.LargeString"
+        },
+        "owner": {
+          "type": "cds.LargeString"
+        },
+        "timeline": {
+          "type": "cds.LargeString"
+        },
+        "risks": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.Risks",
+          "cardinality": {
+            "max": "*"
+          },
+          "keys": []
+        },
+        "IsActiveEntity": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.Boolean",
+          "default": {
+            "val": true
+          },
+          "@UI.Hidden": true
+        },
+        "HasActiveEntity": {
+          "notNull": true,
+          "type": "cds.Boolean",
+          "@UI.Hidden": true
+        },
+        "HasDraftEntity": {
+          "notNull": true,
+          "type": "cds.Boolean",
+          "@UI.Hidden": true
+        },
+        "DraftAdministrativeData": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.DraftAdministrativeData",
+          "cardinality": {
+            "max": 1
+          },
+          "keys": [],
+          "@UI.Hidden": true
+        },
+        "SiblingEntity": {
+          "type": "cds.Association",
+          "@cds.ambiguous": "missing on condition?",
+          "target": "metadata.Mitigations",
+          "cardinality": {
+            "max": 1
+          },
+          "keys": []
+        }
+      },
+      "actions": {
+        "draftPrepare": {
+          "kind": "action",
+          "params": {
+            "SideEffectsQualifier": {
+              "type": "cds.LargeString"
+            }
+          },
+          "returns": {
+            "type": "metadata.Mitigations"
+          }
+        },
+        "draftActivate": {
+          "kind": "action",
+          "returns": {
+            "type": "metadata.Mitigations"
+          }
+        },
+        "draftEdit": {
+          "kind": "action",
+          "params": {
+            "PreserveChanges": {
+              "type": "cds.Boolean"
+            }
+          },
+          "returns": {
+            "type": "metadata.Mitigations"
+          }
+        }
+      },
+      "@Common.DraftRoot": {
+        "$Type": "Common.DraftRootType",
+        "ActivationAction": "metadata.draftActivate",
+        "EditAction": "metadata.draftEdit",
+        "PreparationAction": "metadata.draftPrepare"
+      }
+    },
+    "metadata.DraftAdministrativeData": {
+      "kind": "entity",
+      "@cds.external": true,
+      "@cds.persistence.skip": true,
+      "elements": {
+        "DraftUUID": {
+          "key": true,
+          "notNull": true,
+          "type": "cds.UUID",
+          "@UI.Hidden": true,
+          "@Common.Label": "{i18n>Draft_DraftUUID}"
+        },
+        "CreationDateTime": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@Common.Label": "{i18n>Draft_CreationDateTime}"
+        },
+        "CreatedByUser": {
+          "type": "cds.String",
+          "length": 256,
+          "@Common.Label": "{i18n>Draft_CreatedByUser}"
+        },
+        "DraftIsCreatedByMe": {
+          "type": "cds.Boolean",
+          "@UI.Hidden": true,
+          "@Common.Label": "{i18n>Draft_DraftIsCreatedByMe}"
+        },
+        "LastChangeDateTime": {
+          "type": "cds.Timestamp",
+          "@odata.Precision": 7,
+          "@odata.Type": "Edm.DateTimeOffset",
+          "@Common.Label": "{i18n>Draft_LastChangeDateTime}"
+        },
+        "LastChangedByUser": {
+          "type": "cds.String",
+          "length": 256,
+          "@Common.Label": "{i18n>Draft_LastChangedByUser}"
+        },
+        "InProcessByUser": {
+          "type": "cds.String",
+          "length": 256,
+          "@Common.Label": "{i18n>Draft_InProcessByUser}"
+        },
+        "DraftIsProcessedByMe": {
+          "type": "cds.Boolean",
+          "@UI.Hidden": true,
+          "@Common.Label": "{i18n>Draft_DraftIsProcessedByMe}"
+        }
+      },
+      "@Common.Label": "{i18n>Draft_DraftAdministrativeData}"
+    },
+    "metadata": {
+      "kind": "service",
+      "@cds.external": true
+    }
+  }
+}

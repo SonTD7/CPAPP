@@ -10,8 +10,8 @@
     "express": "^4"
   },
   "devDependencies": {
-    "@sap/ux-specification": "^1.108.3",
-    "sqlite3": "^5"
+    "@sap/ux-specification": "^1.108.3"
+   
   },
   "scripts": {
     "start": "cds-serve",
@@ -19,5 +19,15 @@
   },
   "sapux": [
     "app/roy_project01"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db.sqlite"
+        }
+      }
+    }
+  }
 }

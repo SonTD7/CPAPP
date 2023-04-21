@@ -1,0 +1,10 @@
+{
+  "cds": {
+    "requires": {
+      "metadata": {
+        "kind": "odata",
+        "model": "srv/external/metadata"
+      }
+    }
+  }
+}
